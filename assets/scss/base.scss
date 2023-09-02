@@ -1,0 +1,68 @@
+// Base Properties
+// Imports
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap'); // 400 500 600 700 normal
+@import url('https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap'); // 400 500 600 700 italic normal
+
+// Triad Colors
+$primary: #073b4c;
+$secondary: #06d6a0;
+$monochromatic: #3ec8db;
+$complimentary: #E9BA16;
+$accent: #FBF5F3;
+$default: #111010;
+
+// External Fonts
+$nav-font: 'Montserrat', sans-serif;
+$body-font: 'Hind', sans-serif;
+
+// Standard Font Size
+// Navbar
+$nav: 1.6rem;
+
+// Heading
+$h1: 3rem;
+$h2: 2rem;
+$h3: 1.8rem;
+
+// Paragraph
+$p: 1.5rem;
+
+// Logo
+$logo-size: 2.4rem;
+
+// Padding 2rem 90%
+$padding-layout: 1.5rem 10%;
+$content-padding: 2rem 15%;
+
+// Transition Delay
+$delay-default: 0.3s;
+
+// Text Shadow Preset
+$text-shadow-preset: 0.3rem 0.3rem 0.1rem rgba($default, 0.3);
+
+// Webpage Selector
+// Universal Selector
+* {
+    margin: 0;
+    padding: 0;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+// Root Properties
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+// Body Properties
+body {
+    font-family: $body-font;
+    background-color: $primary;
+    color: $accent;
+}

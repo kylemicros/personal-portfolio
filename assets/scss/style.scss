@@ -1,0 +1,534 @@
+// base.css Module
+@use 'base';
+
+// Mixins Here...
+// Flex Properties
+@mixin flex($align, $justify, $gap, $isColumn: false) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+  gap: $gap;
+
+  // Condition If Column [Optional]
+  @if $isColumn {
+    flex-direction: column;
+  }
+}
+
+// Font
+@mixin font($family, $size, $weight, $t_transform, $color: base.$accent) {
+  font: {
+    family: $family;
+    size: $size;
+    weight: $weight;
+  }
+  text-transform: $t_transform;
+  color: $color;
+}
+
+// Universal Button Mixin
+@mixin btn($lr__padding: 3rem) {
+  display: inline-block;
+  padding: 1.2rem $lr__padding;
+  text-align: center;
+  color: base.$primary;
+  background-color: base.$secondary;
+  border-radius: 0.5rem;
+}
+
+// Fade-in Animation
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Progress Bar Animation
+@mixin progress_bar($item, $width, $anim__delay: 0) {
+  @keyframes #{$item} {
+    from {
+      width: 0%;
+    }
+  
+    to {
+      width: $width;
+    }
+  }
+
+  animation: #{$item} 1s ease-in-out $anim__delay forwards;
+}
+
+// Scrollbar
+::-webkit-scrollbar {
+  width: 1rem;
+  background-color: base.$accent;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: base.$secondary;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: base.$monochromatic; 
+}
+
+// Universal container Class Property
+.container {
+  opacity: 0;
+}
+
+// Fade-in Animation
+.fadeIn {
+  animation: fadeInUp 1s ease-in-out;
+}
+
+// Arrow-up Icon
+#arrow-up {
+  position: fixed;
+  z-index: 1000;
+  right: 3%;
+  font-size: 1.2rem;
+  background-color: base.$secondary;
+  color: base.$primary;
+  opacity: 1;
+  padding: 15px 18px;
+  border-radius: 50%;
+  cursor: pointer;
+  transform: translateY(120dvh);
+  transition: all base.$delay-default ease-in-out;
+}
+
+// Arrow-up Icon hover Property
+#arrow-up:hover {
+  background-color: base.$monochromatic;
+}
+
+// Arrow-up Icon .active Property
+#arrow-up.active {
+  transform: translateY(90dvh);
+  display: block;
+}
+
+// arrow-up media query
+@media (200px <= width <= 768px) {
+  #arrow-up {
+    right: 6%;
+  }
+}
+
+// Universal Unordered List Property
+ul {
+  list-style: none;
+}
+
+// Universal Anchor Links Property
+a {
+  text: {
+    decoration: none;
+    align: center;
+  }
+}
+
+// Header Code Here...
+header {
+  @include flex(center, space-between, 2.4rem);
+  position: fixed;
+  z-index: 1000;
+  padding: base.$padding-layout;
+  background-color: base.$primary;
+  width: 100%;
+  top: 0;
+  left: 0;
+
+  div.menu {
+    @include flex(center, space-between, 3rem);
+  }
+}
+
+
+// Logo
+div.logo-container a {
+  font: {
+    size: 2.4rem;
+    weight: 700;
+  }
+
+  color: base.$accent;
+}
+
+// Menu
+div.menu nav {
+  ul {
+    @include flex(center, space-between, 3.6rem);
+  }
+
+  a {
+    @include font(base.$nav-font, base.$nav, 600, capitalize, base.$accent);
+    transition: base.$delay-default ease-in-out;
+
+    &:hover, span {
+      color: base.$secondary;
+    }
+  }
+}
+
+// Menu and X-icon
+#menu, #x-icon {
+  display: none;
+  position: relative;
+  font-size: 1.8rem;
+  color: var(--snow);
+  cursor: pointer;
+  color: base.$accent;
+  transition: transform 0.3s ease-out;
+}
+
+#menu.active {
+  transform: rotate(180deg);
+}
+
+/* Header Media Queries */
+@media (200px <= width <= 768px) {
+  header div.menu {
+      position: fixed;
+      right: -50dvw;
+      display: block;
+      height: 100dvh;
+      top: 6.84rem;
+      background-color: base.$accent;
+      width: 50dvw;
+      transition: right 0.3s ease;
+
+      &.active {
+          right: 0;
+      }
+      /* Return Initial State */
+      & nav ul {
+          display: initial;
+      }
+
+      & nav li a {
+          display: block;
+          padding: 1.5rem;
+          color: base.$default;
+          font-weight: 500;
+          transition: 0.3s;
+
+          span {
+            color: base.$primary;
+          }
+      }
+
+      & nav a:hover, nav a.active {
+          background-color: base.$secondary;
+          color: base.$primary;
+      }
+  }
+
+  #menu {
+      display: block;
+  }
+}
+
+// main section Property
+main section {
+  min-height: 100dvh;
+  padding: base.$content-padding;
+}
+
+// All section h1 (title) Property
+main section .container h1:not(.name) {
+  @include font(base.$nav-font, 3rem, 700, capitalize);
+  display: inline-block;
+}
+
+// Universal Button Property
+
+.btn-accent {
+  @include font(base.$nav-font, 1.5rem, 600, capitalize);
+  @include btn();
+
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    background-color: base.$monochromatic;
+  }
+}
+
+// Universal Highlighted Images Property
+.container-img {
+  position: relative;
+  border: solid 0.5rem base.$secondary;
+  border-radius: 1rem;
+  transition: transform base.$delay-default ease-in-out;
+  width: 65%;
+
+  &:hover, &:focus {
+    transform: translate(0.3rem, 0.3rem);
+  }
+
+  img {
+    position: relative;
+    transform: translate(-1.5rem, -1.5rem);
+    border-radius: 1rem;
+    width: 100%;
+    filter: grayscale(100%);
+    transition: transform base.$delay-default ease-in-out;
+  }
+
+  &:hover img {
+    transform: translate(-2rem, -2rem);
+    filter: grayscale(0);
+  }
+}
+
+// hero section property
+section.hero {
+  @include flex(center, center, 0);
+}
+section.hero .container {
+  @include flex(center, space-between, 2rem);
+  align-content: center;
+  flex: {
+    wrap: wrap;
+    direction: row-reverse;
+  }
+
+
+  & > div.box {
+    flex: 1 1 30rem;
+  }
+
+  // introduction property
+  div.intro {
+    h1 {
+      @include font(base.$nav-font, base.$h1, 700, capitalize, base.$accent);
+    }
+
+    h2 {
+      @include font(base.$body-font, base.$h2, 500, capitalize, base.$secondary);
+    }
+
+    p {
+      @include font(base.$body-font, base.$p, 400, none, base.$accent);
+    }
+
+    div.social-media ul {
+      @include flex(center, flex-start, 3rem);
+
+      a {
+        color: base.$accent;
+        display: inline-block;
+        font-size: 2rem;
+        transition: transform 0.3s ease-in-out;
+
+        &:hover {
+          transform: translateY(-0.5rem);
+          color: base.$secondary;
+        }
+      }
+    }
+
+    .social-media, .btn-lm {
+      margin-top: 1.5rem;
+    }
+    .btn-lm {
+      position: relative;
+    }
+
+    // Arrow Down Icon
+    .btn-lm::after {
+      content: '\f0ab';
+      position: relative;
+      top: 0;
+      right: -0.5rem;
+      bottom: 0;
+      transition: right 0.3s ease-in-out;
+
+      @include font(FontAwesome, 1.6rem, 900, normal, base.$primary);
+    }
+
+    .btn-lm:hover::after {
+      right: -1rem;
+    }
+  }
+
+  // avatar
+  div.profile-img {
+    @include flex(center, center, 0);
+    position: relative;
+  }
+}
+
+// hero section media query
+@media (200px <= width <= 900px) {
+  section.hero .container, div.profile-img {
+    margin-top: 5rem;
+  }
+}
+
+// About Me section
+
+.about .container {
+  @include flex(center, space-between, 1rem);
+  flex-wrap: wrap;
+  margin-top: 2rem;
+
+  & > div {
+    flex: 1 1 30rem;
+  }
+
+  p {
+    @include font(base.$body-font, 1.75rem, 400, normal);
+  }
+
+  & div.info > * {
+    margin-block-start: 1em;
+  }
+
+  div.code-img {
+    @include flex(center, center, 0);
+    position: relative;
+    margin-top: 9%;
+
+    img {
+      position: relative;
+      width: 100%;
+    }
+  }
+}
+
+
+// About Me media query
+@media (200px <= width <= 768px) {
+  section.about .container {
+    margin-top: 5rem;
+  }
+}
+
+// Skills Code Here...
+
+section.skill {
+  @include flex(flex-start, center, 0);
+}
+
+section.skill .container {
+  display: inline-block;
+  margin-top: 5.6rem;
+  width: 75%;
+
+  h2 {
+    @include font(base.$body-font, base.$h2, 600, capitalize);
+  }
+
+  label {
+    @include font(base.$body-font, 2rem, 600, capitalize);
+  }
+
+  .box {
+    position: relative;
+    margin-block-start: 1em;
+  }
+  // Progress Bars
+  .progress {
+    position: relative;
+    width: 100%;
+    background-color: base.$default;
+    overflow: hidden;
+    border-radius: 1rem;
+    margin-bottom: 2em;
+
+    .percent {
+      position: relative;
+      padding: 1.2rem;
+      background-color: base.$secondary;
+      width: 0;
+      text-align: center;
+
+      &.item-1.active {
+        @include progress_bar(item-1, 80%, 0.4s);
+      }
+
+      &.item-2.active {
+        @include progress_bar(item-2, 90%, 0.6s);
+      }
+
+      &.item-3.active {
+        @include progress_bar(item-3, 70%, 0.8s);
+      }
+
+      &.item-4.active {
+        @include progress_bar(item-4, 75%, 1s);
+      }
+
+      &.active {
+        span {
+          animation: fadeInUp 0.6s ease-in-out 2s forwards;
+        }
+      }
+
+      span {
+        display: inline-block;
+        position: relative;
+        
+        @include font(base.$nav-font, 1.5rem, 600, normal, base.$primary);
+
+        opacity: 0;
+      }
+    }
+  }
+}
+
+// Contact Code Here...
+section.contact {
+  position: relative;
+  display: block;
+  .container {
+    position: relative;
+    width: 100%;
+    height: 75%;
+    margin-top: 8rem;
+
+    @include flex(center, center, 0);
+
+    .box {
+      position: relative;
+      @include flex(center, center, 0, true);
+
+      & > * {
+        margin-block-start: 1em;
+      }
+
+      p {
+        @include font(base.$body-font, base.$p, 500, normal);
+        padding: 0 20%;
+        text-align: center;
+      }
+    }
+  }
+}
+
+// Contact media query
+@media (200px <= width <= 768px) {
+  section.contact .container .box p {
+    padding: 0;
+  }
+}
+
+// Footer Here...
+footer {
+  padding: base.$padding-layout;
+  text-align: center;
+
+  p {
+    @include font(base.$body-font, base.$p, 500, capitalize);
+    letter-spacing: 0.08;
+  }
+}
