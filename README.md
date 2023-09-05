@@ -1,1 +1,1 @@
-"# personal-portfolio" 
+Hi! This is my first ever developed website, a personal portfolio. I am new to Full-Stack Development and will pursue this career onward. My website is simple, but I will update it as soon as I get to proceed in making interesting projects in the future! Wish me good luck!
